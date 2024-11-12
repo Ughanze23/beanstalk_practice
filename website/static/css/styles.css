@@ -1,0 +1,52 @@
+.flash-message-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+}
+
+.flash-message {
+    width: 300px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0.9;
+}
+
+.flash-message .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+
+.login-container {
+    max-width: 400px; /* Set a max width for the square */
+    margin: 50px auto; /* Center the container with top and bottom margin */
+    padding: 20px; /* Add padding inside the box */
+    border: 1px solid #ccc; /* Optional: border around the box */
+    border-radius: 10px; /* Optional: rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
+    background-color: #f8f9fa; /* Optional: background color */
+}
+
+.login-container h3 {
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Space below the title */
+}
+
+
+.signup-container {
+    max-width: 400px; /* Set a max width for the square */
+    margin: 50px auto; /* Center the container with top and bottom margin */
+    padding: 20px; /* Add padding inside the box */
+    border: 1px solid #ccc; /* Optional: border around the box */
+    border-radius: 10px; /* Optional: rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: shadow effect */
+    background-color: #f8f9fa; /* Optional: background color */
+}
+
+.signup-container h3 {
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Space below the title */
+}

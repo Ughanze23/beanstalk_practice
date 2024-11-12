@@ -1,0 +1,101 @@
+{% extends "base.html" %} 
+{% block title %}Admin{% endblock %}
+{% block content %}
+<div> 
+    <br>
+    <h2 align="center">Users</h2>
+    <br>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Email</th>
+                <th scope="col">Username</th>
+                <th scope="col">Role</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Updated At</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.role.role_name if user.role else 'No Role Assigned' }}</td>
+                <td>{{ user.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>{{ user.updated_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-dark dropdown-toggle" data-bs-toggle="dropdown">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" 
+                                   data-bs-toggle="modal" 
+                                   data-bs-target="#exampleModal" 
+                                   data-user-id="{{ user.id }}">
+                                    Change Role
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/users/delete-user/{{ user.id }}">
+                                    Delete User
+                                </a> 
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Change User Role</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <select id="selected_role" class="form-select" aria-label="Default select example" required>
+                        <option selected>Select role</option>
+                        <option value=1>Admin</option>
+                        <option value=2>Editor</option>
+                        <option value=3>Viewer</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-dark" id="saveChangesButton">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get modal and set event listener for when the modal is triggered
+    document.getElementById('exampleModal').addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; 
+        const userId = button.getAttribute('data-user-id');
+        const saveChangesButton = document.getElementById('saveChangesButton');
+        saveChangesButton.setAttribute('data-user-id', userId);
+    });
+
+    document.getElementById('saveChangesButton').addEventListener('click', function () {
+        const selectedRole = document.getElementById('selected_role').value;
+        const userId = this.getAttribute('data-user-id'); 
+        
+        if (selectedRole === 'Select role') {
+            alert('Please select a role');
+        } else {
+            const redirectUrl = `/change-role/user_id=${userId}?role=${selectedRole}`;
+            window.location.href = redirectUrl;
+        }
+    });
+</script>
+{% endblock %}
